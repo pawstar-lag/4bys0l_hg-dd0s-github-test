@@ -1,6 +1,7 @@
 import socket
 import random
 import threading
+import time
 print('''                 _                    _              
                          | |                  | |            
  _ __   __ ___      _____| |_ __ _ _ __ ______| | __ _  __ _ 
@@ -96,6 +97,7 @@ def httpspam():
 # threading
 for i in range(tn):
   t = threading.Thread(target=httpspam)
-  print("[+] Thread {0} created".format(str(i)))
+  time.sleep(random.uniform(0.1,1)) # make the threads created seem more human by delay
+  print("[+] Thread {} created".format(str(i)))
   t.start()
   t.join()
