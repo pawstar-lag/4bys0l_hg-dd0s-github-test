@@ -1,2 +1,8 @@
-# DON'T USE THIS FOR ILLEGAL PURPOSES, I AM NOT RESPONSIBLE FOR WHAT YOU DO
-This tool is a tool to test firewall strength, don't be a script kiddie lol.
+# The script isn't tested yet, you will know when it is tested
+# DON'TS
+- Use for illegal purposes
+- Use this tool to do damage
+# DOS
+- Use this to stress test networks with permission
+- Use this as reference to functions in Python
+- Use for legal purposes
