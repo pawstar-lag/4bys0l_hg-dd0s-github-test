@@ -1,4 +1,4 @@
-# The script isn't tested yet, you will know when it is tested
+# THE SCRIPT IS TESTED!!
 # DON'TS
 - Use for illegal purposes
 - Use this tool to do damage
