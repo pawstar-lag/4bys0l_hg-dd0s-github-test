@@ -2,14 +2,14 @@ import socket
 import random
 import threading
 import time
-print('''                 _                    _              
-                         | |                  | |            
+print('''                 _                    _  
+                         | |                  | |
  _ __   __ ___      _____| |_ __ _ _ __ ______| | __ _  __ _ 
 | '_ \ / _` \ \ /\ / / __| __/ _` | '__|______| |/ _` |/ _` |
 | |_) | (_| |\ V  V /\__ \ || (_| | |         | | (_| | (_| |
 | .__/ \__,_| \_/\_/ |___/\__\__,_|_|         |_|\__,_|\__, |
 | |                                                     __/ |
-|_|                                                    |___/
+|_|                                                     |___/
 Created by pawstar-lag
 Contact: foxxxqi_qsd1@protonmail.com
 Any impovements needed? Feel free to pull request!
@@ -98,6 +98,6 @@ def httpspam():
 for i in range(tn):
   t = threading.Thread(target=httpspam)
   time.sleep(random.uniform(0.1,1)) # make the threads created seem more human by delay
-  print("[+] Thread {} created".format(str(i)))
+  print("[+] Thread created")
   t.start()
   t.join()
