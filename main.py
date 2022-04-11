@@ -99,4 +99,3 @@ for i in range(tn):
   t = threading.Thread(target=httpspam)
   t.start()
   t.join()
-  print("[+] Thread {0} created".format(i))
