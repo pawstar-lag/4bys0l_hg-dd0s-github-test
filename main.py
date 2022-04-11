@@ -97,7 +97,6 @@ def httpspam():
 # threading
 for i in range(tn):
   t = threading.Thread(target=httpspam)
-  time.sleep(random.uniform(0.1,1)) # make the threads created seem more human by delay
-  print("[+] Thread created")
   t.start()
   t.join()
+  print("[+] Thread {0} created".format(i))
